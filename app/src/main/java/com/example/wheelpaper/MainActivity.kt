@@ -32,6 +32,18 @@ class MainActivity : AppCompatActivity() {
             selectedColor = envelope.color
             binding.colorPreview.setBackgroundColor(selectedColor)
         })
+
+        // Attach the brightness slider to the color picker
+        binding.colorPickerView.attachBrightnessSlider(binding.brightnessSlideBar)
+
+        // Add a listener to the brightness slider to update the selected color and preview
+        binding.brightnessSlideBar.setOnBrightnessChangeListener { brightness ->
+            // The color picker view's selected color is automatically updated when the slider is attached and moved,
+            // but we need to manually update our selectedColor variable and the preview.
+            selectedColor = binding.colorPickerView.color
+            binding.colorPreview.setBackgroundColor(selectedColor)
+        }
+
         // Set initial preview color
         binding.colorPreview.setBackgroundColor(selectedColor)
     }
