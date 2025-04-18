@@ -10,8 +10,18 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.wheelpaper.databinding.ActivityMainBinding
-import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import java.io.IOException
+import android.app.WallpaperManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import com.example.wheelpaper.databinding.ActivityMainBinding
+import com.flask.colorpicker.OnColorChangedListener // Import the new listener interface
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,28 +38,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupColorPicker() {
-        binding.colorPickerView.setColorListener(ColorEnvelopeListener { envelope, _ ->
-            selectedColor = envelope.color
-            binding.colorPreview.setBackgroundColor(selectedColor)
-        })
-
-        // Attach the brightness slider to the color picker
-        binding.colorPickerView.attachBrightnessSlider(binding.brightnessSlideBar)
-
-        // Add a listener to the brightness slider to update the selected color and preview
-        binding.brightnessSlideBar.setBrightnessChangeListener(object : com.skydoves.colorpickerview.listeners.OnBrightnessChangeListener {
-            override fun onStartTrackingTouch(brightness: Int) {
-                // Optional: Handle when the user starts touching the slider
-            }
-
-            override fun onProgressChanged(brightness: Int, fromUser: Boolean) {
-                // Update the selected color and preview when the slider position changes
-                selectedColor = binding.colorPickerView.color // Get the color with updated brightness
+        // Set a listener for color changes on the new ColorPickerView
+        binding.colorPickerView.setOnColorChangedListener(object : OnColorChangedListener {
+            override fun onColorChanged(selectedColor: Int) {
+                // Update the selected color variable and the preview
+                this@MainActivity.selectedColor = selectedColor
                 binding.colorPreview.setBackgroundColor(selectedColor)
-            }
-
-            override fun onStopTrackingTouch(brightness: Int) {
-                // Optional: Handle when the user stops touching the slider
             }
         })
 

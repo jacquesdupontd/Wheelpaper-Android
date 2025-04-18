@@ -7,16 +7,20 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <com.skydoves.colorpickerview.ColorPickerView
+    <com.flask.colorpicker.ColorPickerView
         android:id="@+id/colorPickerView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.9"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        app:alphaSlider="true"
+        app:lightnessSlider="true"
+        app:density="10"
+        app:wheelType="FLAT"
+        app:initialColor="@color/black"/>
 
     <View
         android:id="@+id/colorPreview"
@@ -28,16 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.skydoves.colorpickerview.sliders.BrightnessSlideBar
-        android:id="@+id/brightnessSlideBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/colorPreview"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <!-- Removed BrightnessSlideBar as it's integrated into the new ColorPickerView -->
 
     <LinearLayout
         android:id="@+id/buttonLayout"
@@ -46,7 +41,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/brightnessSlideBar"
+        app:layout_constraintTop_toBottomOf="@id/colorPreview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
