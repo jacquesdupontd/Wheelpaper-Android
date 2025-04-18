@@ -37,12 +37,21 @@ class MainActivity : AppCompatActivity() {
         binding.colorPickerView.attachBrightnessSlider(binding.brightnessSlideBar)
 
         // Add a listener to the brightness slider to update the selected color and preview
-        binding.brightnessSlideBar.setOnBrightnessChangeListener { brightness ->
-            // The color picker view's selected color is automatically updated when the slider is attached and moved,
-            // but we need to manually update our selectedColor variable and the preview.
-            selectedColor = binding.colorPickerView.color
-            binding.colorPreview.setBackgroundColor(selectedColor)
-        }
+        binding.brightnessSlideBar.setOnBrightnessChangeListener(object : com.skydoves.colorpickerview.listeners.OnBrightnessChangeListener {
+            override fun onStartTrackingTouch(brightness: Int) {
+                // Optional: Handle when the user starts touching the slider
+            }
+
+            override fun onProgressChanged(brightness: Int, fromUser: Boolean) {
+                // Update the selected color and preview when the slider position changes
+                selectedColor = binding.colorPickerView.color // Get the color with updated brightness
+                binding.colorPreview.setBackgroundColor(selectedColor)
+            }
+
+            override fun onStopTrackingTouch(brightness: Int) {
+                // Optional: Handle when the user stops touching the slider
+            }
+        })
 
         // Set initial preview color
         binding.colorPreview.setBackgroundColor(selectedColor)
